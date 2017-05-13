@@ -1,0 +1,4 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("mgcv", "gamSim","gam")
+importFrom("graphics", "abline", "lines")
+importFrom("stats", "predict")
