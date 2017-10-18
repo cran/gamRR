@@ -2,6 +2,18 @@
 gamRR=function(fit,ref,est,data,plot=TRUE,ylim=NULL){
 
   ref=data.frame(t(ref))
+  form=as.character(fit$formula)
+  x.list=strsplit(form[3],"\\+")[[1]]
+  x.list=gsub(" ","",x.list)
+  x.list=gsub("s\\(","",x.list)
+  x.list=gsub("\\)","",x.list)
+  if(length(names(ref))!=length(x.list)){
+    stop("The number of variables in the 'ref' argument is not equal to those in the model!")
+  }
+  if(any(!(names(ref) %in% x.list))){
+    stop("Some variables in the 'ref' argument are not in the model!")
+  }
+
   rrref=predict(fit,type="response",newdata=ref)
 
   ndata=matrix(rep(0,nrow(data)*length(names(ref))),ncol=length(names(ref)))
