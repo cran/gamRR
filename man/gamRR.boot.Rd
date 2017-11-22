@@ -1,19 +1,21 @@
-\name{gamRR}
-\alias{gamRR}
-\title{Calculate the RR for the GAM}
+\name{gamRR.boot}
+\alias{gamRR.boot}
+\title{Calculate the RR for the GAM by using the bootstrap method}
 \description{
-To calculate the relative risk (RR) for the generalized additive model
+To calculate the relative risk (RR) for the generalized additive model by using the bootstrap method
 }
 \usage{
-gamRR(fit,ref,est,data,plot,ylim)
+gamRR.boot(fit,ref,est,data,n.points,n.boot,plot,ylim)
 }
 \arguments{
   \item{fit}{an object of gam()}
   \item{ref}{a vector of the independent variables at referenced level, please note that the names of the variables in 'ref' should be matched to those in the model}
   \item{est}{character, to indicate which numeric variable should be calculated the RR, please note that the name of the variable in 'est' should be matched to which in the model}
   \item{data}{the name of the data in the gam()}
-  \item{plot}{logic, to indicate whehter to plot the rr}
-  \item{ylim}{a vector of tow numeric number}
+  \item{n.points}{integer, the number of points of 'est' to be estimated, the default is 10}
+  \item{n.boot}{integer, the number of times for resampling, the default is 50}
+  \item{plot}{logic, to indicate whehter to plot the rr, the default is TRUE}
+  \item{ylim}{a vector of tow numeric number determinging the range of y axis}
 }
 \value{
   \item{data frame}{a data frame including variables of 'x', 'rr', 'u', and 'l'}
@@ -37,7 +39,7 @@ version 0.3.0: 1. gamRR.boot() function was added.
 more functions will be included in 'gamRR' package!
 }
 \seealso{
-\code{\link{gamRR.boot}}
+\code{\link{gamRR}}
 }
 \examples{
 #require("mgcv")

@@ -55,7 +55,6 @@ gamRR=function(fit,ref,est,data,plot=TRUE,ylim=NULL){
     plot(xy[,c("x","rr")],type="l",ylim=ylim,ylab="RR",xlab=est)
     lines(xy[,c("x","u")],lty=2)
     lines(xy[,c("x","l")],lty=2)
-    abline(h=1,col="grey")
   }
 
   return(xy)
