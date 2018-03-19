@@ -36,6 +36,8 @@ version 0.2.0: 1. checking procedure for the arguments was added. The function w
 
 version 0.3.0: 1. gamRR.boot() function was added.
 
+version 0.4.0: 1. the plot styles of gamRR() and gamRR.boot() were united. 2. the independent variable with factor() or as.factor() was allowed.
+
 more functions will be included in 'gamRR' package!
 }
 \seealso{
@@ -52,7 +54,9 @@ more functions will be included in 'gamRR' package!
 #  ref=c(x0=dat$x0[1],x1=dat$x1[1],x2=dat$x2[1],x3=dat$x3[1]),
 #  est="x1",
 #  data=dat,
-#  plot=TRUE)
+#  n.points=10,
+#  plot=TRUE,
+#  ylim=NULL)
 
 #gamRR.boot(
 #  fit=fit,

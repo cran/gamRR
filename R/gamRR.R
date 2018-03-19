@@ -1,11 +1,20 @@
 
-gamRR=function(fit,ref,est,data,plot=TRUE,ylim=NULL){
+gamRR=function(
+  fit,
+  ref,
+  est,
+  data,
+  n.points=10,
+  plot=TRUE,
+  ylim=NULL){
 
   ref=data.frame(t(ref))
   form=as.character(fit$formula)
   x.list=strsplit(form[3],"\\+")[[1]]
   x.list=gsub(" ","",x.list)
   x.list=gsub("s\\(","",x.list)
+  x.list=gsub("as.factor\\(","",x.list)
+  x.list=gsub("factor\\(","",x.list)
   x.list=gsub("\\)","",x.list)
   if(length(names(ref))!=length(x.list)){
     stop("The number of variables in the 'ref' argument is not equal to those in the model!")
@@ -52,10 +61,33 @@ gamRR=function(fit,ref,est,data,plot=TRUE,ylim=NULL){
   if(plot){
     if(is.null(ylim)){ylim=c(min(xy$l),max(xy$u))}
 
-    plot(xy[,c("x","rr")],type="l",ylim=ylim,ylab="RR",xlab=est)
-    lines(xy[,c("x","u")],lty=2)
-    lines(xy[,c("x","l")],lty=2)
+#    plot(xy[,c("x","rr")],type="l",ylim=ylim,ylab="RR",xlab=est)
+#    lines(xy[,c("x","u")],lty=2)
+#    lines(xy[,c("x","l")],lty=2)
+
+    rangE=range(data[,est])
+    est.seq=seq(from=rangE[1],to=rangE[2],length.out=n.points)
+    seq.ind=which(abs(est.seq-as.numeric(ref[est]))==min(abs(est.seq-as.numeric(ref[est]))))
+    est.seq[seq.ind]=as.numeric(ref[est])
+
+    nxy=matrix(rep(0,n.points*4),ncol=4)
+    nxy=data.frame(nxy)
+    names(nxy)=c("x","rr","u","l")
+    for(i in 1:n.points){
+      ind=which(abs(xy$x-est.seq[i])==min(abs(xy$x-est.seq[i])))
+      nxy[i,]=xy[ind,]
+    }
+    nxy[seq.ind,2:4]=1
+
+    plot(spline(nxy$x,nxy$rr,xmax=as.numeric(ref[,est])),
+         type="l",xlim=c(min(nxy$x),max(nxy$x)),ylim=ylim,xlab=est,ylab="RR")
+    lines(spline(nxy$x,nxy$l,xmax=as.numeric(ref[,est])),lty=2)
+    lines(spline(nxy$x,nxy$u,xmax=as.numeric(ref[,est])),lty=2)
+    lines(spline(nxy$x,nxy$rr,xmin=as.numeric(ref[,est])),lty=1)
+    lines(spline(nxy$x,nxy$l,xmin=as.numeric(ref[,est])),lty=2)
+    lines(spline(nxy$x,nxy$u,xmin=as.numeric(ref[,est])),lty=2)
+
   }
 
-  return(xy)
+  return(nxy)
 }

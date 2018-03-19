@@ -13,6 +13,8 @@ gamRR.boot=function(
   x.list=strsplit(form[3],"\\+")[[1]]
   x.list=gsub(" ","",x.list)
   x.list=gsub("s\\(","",x.list)
+  x.list=gsub("as.factor\\(","",x.list)
+  x.list=gsub("factor\\(","",x.list)
   x.list=gsub("\\)","",x.list)
   if(length(names(ref))!=length(x.list)){
     stop("The number of variables in the 'ref' argument is not equal to those in the model!")

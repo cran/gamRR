@@ -5,13 +5,14 @@
 To calculate the relative risk (RR) for the generalized additive model
 }
 \usage{
-gamRR(fit,ref,est,data,plot,ylim)
+gamRR(fit,ref,est,data,n.points,plot,ylim)
 }
 \arguments{
   \item{fit}{an object of gam()}
   \item{ref}{a vector of the independent variables at referenced level, please note that the names of the variables in 'ref' should be matched to those in the model}
   \item{est}{character, to indicate which numeric variable should be calculated the RR, please note that the name of the variable in 'est' should be matched to which in the model}
   \item{data}{the name of the data in the gam()}
+  \item{n.points}{integer, the number of points of 'est' to be estimated, the default is 10}
   \item{plot}{logic, to indicate whehter to plot the rr}
   \item{ylim}{a vector of tow numeric number}
 }
@@ -34,6 +35,8 @@ version 0.2.0: 1. checking procedure for the arguments was added. The function w
 
 version 0.3.0: 1. gamRR.boot() function was added.
 
+version 0.4.0: 1. the plot styles of gamRR() and gamRR.boot() were united. 2. the independent variable with factor() or as.factor() was allowed.
+
 more functions will be included in 'gamRR' package!
 }
 \seealso{
@@ -50,7 +53,9 @@ more functions will be included in 'gamRR' package!
 #  ref=c(x0=dat$x0[1],x1=dat$x1[1],x2=dat$x2[1],x3=dat$x3[1]),
 #  est="x1",
 #  data=dat,
-#  plot=TRUE)
+#  n.points=10,
+#  plot=TRUE,
+#  ylim=NULL)
 
 #gamRR.boot(
 #  fit=fit,
