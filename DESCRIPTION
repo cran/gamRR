@@ -1,7 +1,7 @@
 Package: gamRR
 Type: Package
 Title: Calculate the RR for the GAM
-Version: 0.4.0
+Version: 0.5.0
 Author: Zhicheng Du,Wangjian Zhang, Yuantao Hao
 Maintainer: Zhicheng Du<dgdzc@hotmail.com>
 Description: To calculate the relative risk (RR) for the generalized additive model.
@@ -10,6 +10,6 @@ Encoding: UTF-8
 Imports: mgcv,graphics,stats,boot
 LazyData: true
 NeedsCompilation: no
-Packaged: 2018-03-19 09:46:59 UTC; dgdzc
+Packaged: 2019-02-21 03:59:20 UTC; dgdzc
 Repository: CRAN
-Date/Publication: 2018-03-19 09:55:15 UTC
+Date/Publication: 2019-02-21 05:30:03 UTC

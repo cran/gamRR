@@ -37,6 +37,8 @@ version 0.3.0: 1. gamRR.boot() function was added.
 
 version 0.4.0: 1. the plot styles of gamRR() and gamRR.boot() were united. 2. the independent variable with factor() or as.factor() was allowed.
 
+version 0.5.0: 1. fix the error "object 'nxy' not found" in gamRR().
+
 more functions will be included in 'gamRR' package!
 }
 \seealso{
@@ -54,16 +56,6 @@ more functions will be included in 'gamRR' package!
 #  est="x1",
 #  data=dat,
 #  n.points=10,
-#  plot=TRUE,
-#  ylim=NULL)
-
-#gamRR.boot(
-#  fit=fit,
-#  ref=c(x0=dat$x0[1],x1=dat$x1[1],x2=dat$x2[1],x3=dat$x3[1]),
-#  est="x1",
-#  data=dat,
-#  n.points=10,
-#  n.boot=50,
 #  plot=TRUE,
 #  ylim=NULL)
 }

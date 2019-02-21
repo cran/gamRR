@@ -37,8 +37,7 @@ gamRR.boot=function(
   ndata[,-match(est,names(ref))]=ref[,-match(est,names(ref))]
 
   dzc.boot=function(data.boot,i){
-    fit.boot=gam(fit$formula,family=fit$family,method=fit$method,
-                 data=data.boot[i,])
+    fit.boot=gam(fit$formula,family=fit$family,method=fit$method,data=data.boot[i,])
     c(predict(fit.boot,type="response",newdata=ndata)/as.numeric(rrref))
   }
   rr.boot=boot(data=data,statistic=dzc.boot,R=n.boot,stype="i")
@@ -52,11 +51,9 @@ gamRR.boot=function(
   rr.l[seq.ind]=1
   rr.u[seq.ind]=1
 
-  if(is.null(ylim)){ylim=c(min(rr.l),max(rr.u))}
-
   if(plot){
-    plot(spline(est.seq,rr,xmax=as.numeric(ref[,est])),
-         type="l",xlim=c(min(est.seq),max(est.seq)),ylim=ylim,xlab=est,ylab="RR")
+    if(is.null(ylim)){ylim=c(min(rr.l),max(rr.u))}
+    plot(spline(est.seq,rr,xmax=as.numeric(ref[,est])),type="l",xlim=c(min(est.seq),max(est.seq)),ylim=ylim,xlab=est,ylab="RR")
     lines(spline(est.seq,rr.l,xmax=as.numeric(ref[,est])),lty=2)
     lines(spline(est.seq,rr.u,xmax=as.numeric(ref[,est])),lty=2)
     lines(spline(est.seq,rr,xmin=as.numeric(ref[,est])),lty=1)
