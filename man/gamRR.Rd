@@ -39,6 +39,8 @@ version 0.4.0: 1. the plot styles of gamRR() and gamRR.boot() were united. 2. th
 
 version 0.5.0: 1. fix the error "object 'nxy' not found" in gamRR().
 
+version 0.6.0: 1. fix the error if there were missing data. 2. fix the warnings of 'replace' in 'data.frame'. 3. the independent variable with offset() or log() was allowed.
+
 more functions will be included in 'gamRR' package!
 }
 \seealso{

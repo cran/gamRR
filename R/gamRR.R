@@ -6,7 +6,7 @@ gamRR=function(
   n.points=10,
   plot=TRUE,
   ylim=NULL){
-
+  
   ref=data.frame(t(ref))
   form=as.character(fit$formula)
   x.list=strsplit(form[3],"\\+")[[1]]
@@ -14,14 +14,16 @@ gamRR=function(
   x.list=gsub("s\\(","",x.list)
   x.list=gsub("as.factor\\(","",x.list)
   x.list=gsub("factor\\(","",x.list)
+  x.list=gsub("offset\\(","",x.list)
+  x.list=gsub("log\\(","",x.list)
   x.list=gsub("\\)","",x.list)
   if(length(names(ref))!=length(x.list)){
     stop("The number of variables in the 'ref' argument is not equal to those in the model!")
   }
-  if(any(!(names(ref) %in% x.list))){
-    stop("Some variables in the 'ref' argument are not in the model!")
-  }
+  if(any(!(names(ref) %in% x.list))){stop("Some variables in the 'ref' argument are not in the model!")}
 
+  for(i in 1:length(x.list)){data=data[!is.na(data[,x.list[i]]),]}
+  
   rrref=predict(fit,type="response",newdata=ref)
 
   ndata=matrix(rep(0,nrow(data)*length(names(ref))),ncol=length(names(ref)))
@@ -33,12 +35,14 @@ gamRR=function(
   rr=predict(fit,type="response",newdata=ndata)
   rr=as.numeric(rr)/as.numeric(rrref)
 
+  ref_no_est=names(ref)[-match(est,names(ref))]
   i=1
   ndata=matrix(rep(0,nrow(data)*length(names(ref))),ncol=length(names(ref)))
   ndata=data.frame(ndata)
   names(ndata)=names(ref)
   ndata[,match(est,names(ndata))]=data[,match(est,names(data))]
-  ndata[,-match(est,names(ref))]=data[i,match(names(ndata),names(data))][,-match(est,names(ref))]
+  for(j in 1:length(ref_no_est)){ndata[,ref_no_est[j]]=data[i,ref_no_est[j]]}
+  
   rrn=predict(fit,type="response",newdata=ndata)/as.numeric(rrref)
 
   for(i in 2:nrow(data)){
@@ -46,7 +50,7 @@ gamRR=function(
     ndata=data.frame(ndata)
     names(ndata)=names(ref)
     ndata[,match(est,names(ndata))]=data[,match(est,names(data))]
-    ndata[,-match(est,names(ref))]=data[i,match(names(ndata),names(data))][,-match(est,names(ref))]
+    for(j in 1:length(ref_no_est)){ndata[,ref_no_est[j]]=data[i,ref_no_est[j]]}
     rrn=cbind(rrn,predict(fit,type="response",newdata=ndata)/as.numeric(rrref))
   }
 
